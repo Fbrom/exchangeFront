@@ -1,25 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import  CalculatorPage  from "../src/pages/calculatorPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ContextProvider } from "../src/context/globalcontext";
+import LoginPage from './pages/loginPage';
+import ConfirmPage from './pages/confirmOperation';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <ContextProvider>
+    <div className="App" >
+      <BrowserRouter>
+        <Routes>
+            <Route exact path="/" element={<CalculatorPage />}/>
+            <Route path="/login" element={<LoginPage />}/>
+            <Route path="/confirm" element={<ConfirmPage />}/>
+        </Routes>
+      </BrowserRouter>
     </div>
-  );
-}
+    </ContextProvider>
+      )};
 
-export default App;
+export  default App;

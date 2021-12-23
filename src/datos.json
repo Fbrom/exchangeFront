@@ -1,0 +1,74 @@
+ [
+        {
+            "id": "61b76fab93092b07621751f7",
+            "targetName": "Pesos (ARS)",
+            "sourceName": "Paypal (USD)",
+            "type": "Pesos Argentinos",
+            "comission": "0.065",
+            "finalValue": "16.00",
+            "isActive": true
+        },
+        {
+            "id": "61b76fac93092b0762175325",
+            "targetName": "Payoneer (USD)",
+            "sourceName": "Paypal (USD)",
+            "type": "Dólares",
+            "comission": "0.005",
+            "finalValue": "1.50",
+            "isActive": true
+        },
+        {
+            "id": "61b76fac93092b0762175448",
+            "targetName": "Venezuela (BS)",
+            "sourceName": "Paypal (USD)",
+            "type": "Bolivares",
+            "comission": "0.00005",
+            "finalValue": "3000000.00",
+            "isActive": true
+        },
+        {
+            "id": "61b76fac93092b0762175565",
+            "targetName": "Paypal (USD)",
+            "sourceName": "Pesos (ARS)",
+            "type": "Dólares",
+            "comission": "0.05",
+            "finalValue": "0.06",
+            "isActive": true
+        },
+        {
+            "id": "61b76fac93092b0762175594",
+            "targetName": "Venezuela (BS)",
+            "sourceName": "Pesos (ARS)",
+            "type": "Dólares",
+            "comission": "0.5",
+            "finalValue": "5300000.00",
+            "isActive": true
+        },
+        {
+            "id": "61b76fac93092b07621755a7",
+            "targetName": "Payoneer (USD)",
+            "sourceName": "Pesos (ARS)",
+            "type": "Dólares",
+            "comission": "0.052",
+            "finalValue": "0.05",
+            "isActive": true
+        },
+        {
+            "id": "61b76fac93092b07621756a5",
+            "targetName": "Pesos (COP)",
+            "sourceName": "Pesos (ARS)",
+            "type": "Pesos Colombianos",
+            "comission": "0.052",
+            "finalValue": "0.05",
+            "isActive": true
+        },
+        {
+            "id": "61b76fac93092b07621756c6",
+            "targetName": "Pesos (ARS)",
+            "sourceName": "Payoneer (USD)",
+            "type": "Pesos Argentinos",
+            "comission": "0.052",
+            "finalValue": "18.05",
+            "isActive": true
+        }
+    ]
