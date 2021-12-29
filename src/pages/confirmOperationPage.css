@@ -1,52 +1,49 @@
-.navBar{
-    background: rgb(70, 70, 189);
-    color:white
+.navBar {
+  background: rgb(70, 70, 189);
+  color: white;
 }
 
-
-.componentConfirm{
-    height:100%;
-    margin:0;
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(243, 243, 243);
-    background-position-y: bottom;
-    background-repeat: no-repeat; 
-    justify-content: center;
-    align-items: center;
+.componentConfirm {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(243, 243, 243);
+  background-position-y: bottom;
+  background-repeat: no-repeat;
+  justify-content: center;
+  align-items: center;
 }
 
-
-.componentConfirmTitle{
-    background: rgb(70, 70, 189);
-    color: rgb(240, 240, 240);
-    border: none;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    outline: none;
+.componentConfirmTitle {
+  background: rgb(70, 70, 189);
+  color: rgb(240, 240, 240);
+  border: none;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  outline: none;
 }
 
-.formConfirm{
-    background: rgb(246, 246, 246);
-    border: 0;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    outline: none;
-    padding:5%;
-    color: rgb(116, 116, 116);
+.formConfirm {
+  background: rgb(246, 246, 246);
+  border: 0;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  outline: none;
+  padding: 5%;
+  color: rgb(116, 116, 116);
 }
 
-.formConfirm.formConfimInput{
-    background:rgb(246, 246, 246);
-    border: 0;
+.formConfirm.formConfimInput {
+  background: rgb(246, 246, 246);
+  border: 0;
 }
 
-.line{
-    width: 112px;
-    height: 47px;
-    border-bottom: 1px solid black;
-    position: absolute;
-    }
+.line {
+  width: 112px;
+  height: 47px;
+  border-bottom: 1px solid black;
+  position: absolute;
+}
 
-
-.formConfirm .btn-primary{
-    background-color: rgb(70, 70, 189);
+.formConfirm .btn-primary {
+  background-color: rgb(70, 70, 189);
 }

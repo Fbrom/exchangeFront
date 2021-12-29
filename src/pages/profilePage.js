@@ -1,22 +1,18 @@
 import React from "react";
-import NavBar from "./navBar"
-import ProfileContainer from "../components/profileForm/profileContainer"
-import { Row} from "react-bootstrap";
+import NavBar from "./navBar";
+import ProfileContainer from "../components/profileForm/profileContainer";
+import { Row } from "react-bootstrap";
 //import "./profilePage.css"
 
 const profile = () => {
-
-return (
+  return (
     <div className="">
-    <NavBar/>
-    <div className="">
-    
-    <ProfileContainer/>
+      <NavBar />
+      <div className="">
+        <ProfileContainer />
+      </div>
     </div>
-    
+  );
+};
 
-    </div>
-)
-}
-
-export default profile
+export default profile;

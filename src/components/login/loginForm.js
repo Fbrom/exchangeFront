@@ -2,10 +2,7 @@ import { Form, Button, Row } from "react-bootstrap";
 import React, { useEffect, useState, useContext } from "react";
 import { GlobalExchange } from "../../context/globalcontext";
 
-
 const loginForm = ({ setUser, setPassword, handleSubmit }) => {
-  
-
   return (
     <>
       <div className="row ">
@@ -42,7 +39,6 @@ const loginForm = ({ setUser, setPassword, handleSubmit }) => {
             variant="primary"
             type="submit"
             //href="/confirm"
-           
           >
             Acceder
           </Button>

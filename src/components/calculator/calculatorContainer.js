@@ -7,14 +7,10 @@ import { useNavigate } from "react-router-dom";
 
 const CalculatorContainer = () => {
   const { createExchange, exchange } = useContext(GlobalExchange);
-
-
-  console.log(exchange)
-
   const [data, setData] = useState([]);
   const [optionsSource, setOptionsSource] = useState([]);
   const [optionsTarget, setOptionsTarget] = useState([]);
-  const [selection, setSelection] = useState({}) 
+  const [selection, setSelection] = useState({});
   const [amount, setAmount] = useState();
   const [comission, setComission] = useState();
   const [finalValue, setFinalValue] = useState();
@@ -27,14 +23,14 @@ const CalculatorContainer = () => {
   let history = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:3002/api/v1/exchanges/')
-        .then(res => res.json())
-        .then((res) => {
-            setData(res.data)
-        })
-        .catch(err => console.log('error de:', err))
-        .finally(() => console.log('exchanges cargados'));
-}, []);
+    fetch("http://localhost:3002/api/v1/exchanges/")
+      .then((res) => res.json())
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => console.log("error de:", err))
+      .finally(() => console.log("exchanges cargados"));
+  }, []);
 
   useEffect(() => {
     let option = data.map((dato) => dato.sourceName).filter(unique);
@@ -42,7 +38,9 @@ const CalculatorContainer = () => {
   }, [data]);
 
   useEffect(() => {
-    const options = data.filter((target) => target.sourceName === selection.source);
+    const options = data.filter(
+      (target) => target.sourceName === selection.source
+    );
     const option = options.map((dato) => dato.targetName);
     setOptionsTarget(option);
   }, [selection.source]);
@@ -50,7 +48,8 @@ const CalculatorContainer = () => {
   useEffect(() => {
     const options = data.filter(
       (targets) =>
-        targets.sourceName === selection.source && targets.targetName === selection.target
+        targets.sourceName === selection.source &&
+        targets.targetName === selection.target
     );
 
     const comission = options.map((dato) => dato.comission);
@@ -67,17 +66,15 @@ const CalculatorContainer = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let finalExchange = ({
+    let finalExchange = {
       targetName: selection.target,
       sourceName: selection.source,
       amount: amount,
-      result:result
-    });
-    createExchange(finalExchange)
-    
-    history("/login")
-    
+      result: result,
+    };
+    createExchange(finalExchange);
 
+    history("/login");
   };
 
   return (

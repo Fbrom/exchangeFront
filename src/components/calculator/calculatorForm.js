@@ -1,10 +1,6 @@
 import { Form, Button } from "react-bootstrap";
-import React, { useEffect, useState, useContext } from "react";
+import React from "react";
 import { HiCurrencyDollar } from "react-icons/hi";
-import CalculatorContainer from "./calculatorContainer";
-import Datos from "../../datos.json";
-import { GlobalExchange } from "../../context/globalcontext";
-import { Link } from "react-router-dom";
 
 const CalculatorForm = ({
   selection,
@@ -17,10 +13,8 @@ const CalculatorForm = ({
   setAmount,
   amount,
   result,
-  exchange
+  exchange,
 }) => {
-  
-
   return (
     <>
       <Form className="" value="true" onSubmit={handleSubmit}>
@@ -60,8 +54,11 @@ const CalculatorForm = ({
                 <option value="Select your currency" hidden>
                   Select your currency
                 </option>
+                if(optionSource)
                 {optionsSource.map((source) => (
-                  <option value={source}>{source}</option>
+                  <option key={source} value={source}>
+                    {source}
+                  </option>
                 ))}
               </Form.Select>
             </div>
