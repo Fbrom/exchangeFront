@@ -1,8 +1,8 @@
-import { createContext, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 
 import appReducer from "./appReducer";
 
-const initialState = { exchanges: [] };
+const initialState = {exchange:{}};
 
 export const GlobalExchange = createContext(initialState);
 
@@ -15,7 +15,7 @@ export const ContextProvider = ({ children }) => {
   };
 
   return (
-    <GlobalExchange.Provider value={{ ...state, createExchange }}>
+    <GlobalExchange.Provider value={{ ...state, createExchange}}>
       {children}
     </GlobalExchange.Provider>
   );

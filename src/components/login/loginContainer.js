@@ -2,13 +2,17 @@ import React, { useEffect, useState, useContext } from "react";
 import LoginForm  from "./loginForm"
 import Axios from 'axios'
 import { GlobalExchange } from "../../context/globalcontext"
-
+import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
 const LoginContainer = () => {
    
-  const { exchanges }= useContext(GlobalExchange);
+  const { createExchange, exchange } = useContext(GlobalExchange);
+
+
+  console.log(exchange)
 
     const [user, setUser] = useState("")
     const [password, setPassword] = useState("")
@@ -32,6 +36,7 @@ const LoginContainer = () => {
 }, [password])
 
    
+    let history = useNavigate();
 
     const handleSubmit = (event) => {
         
@@ -41,12 +46,14 @@ const LoginContainer = () => {
           
        const bodyParameters = (finalUser[0]);
 
-       Axios.post('http://localhost:3002/api/v1/auth/login', finalUser[0])
+       Axios.post('http://localhost:3002/api/v1/auth/login', bodyParameters)
         .then(res=>{
-
+          localStorage.removeItem('token');
           localStorage.setItem('token', res.data.data.token)
          
-        })
+        }
+        )
+        history("/confirm")
     }
 
     

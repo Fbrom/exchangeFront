@@ -1,31 +1,39 @@
 import React, { useEffect, useState, useContext } from "react";
-import CalculatorForm from "./calculatorForm";
-//simport datos from "../../datos.json";
+import ConfirmForm from "./confirmForm";
 import CalculatorPage from "../../pages/calculatorPage";
 import { GlobalExchange } from "../../context/globalcontext";
-import { useNavigate } from "react-router-dom";
+import { FaExchangeAlt } from "react-icons/fa";
+//import ProfileForm from "../profileForm.js/profileForm"
 
-const CalculatorContainer = () => {
+
+const ConfirmContainer = () => {
   const { createExchange, exchange } = useContext(GlobalExchange);
+  //console.log(exchange)
 
-
-  console.log(exchange)
 
   const [data, setData] = useState([]);
   const [optionsSource, setOptionsSource] = useState([]);
   const [optionsTarget, setOptionsTarget] = useState([]);
-  const [selection, setSelection] = useState({}) 
-  const [amount, setAmount] = useState();
+  const [selection, setSelection] = useState({source:exchange[1].sourceName, target:exchange[1].targetName} ) 
+  const [amount, setAmount] = useState([exchange[1].amount]);
+  const [result, setResult] = useState([exchange[1].result]);
   const [comission, setComission] = useState();
   const [finalValue, setFinalValue] = useState();
   const [submit, setSubmit] = useState("false");
+  const [user, setUser] = useState([]);
+ 
+  
+  //console.log(selection)
+  //console.log(result)
+  //console.log(amount)
 
   const unique = (value, index, self) => {
     return self.indexOf(value) === index;
   };
 
-  let history = useNavigate();
+  //console.log(window.localStorage.getItem("token"))
 
+ 
   useEffect(() => {
     fetch('http://localhost:3002/api/v1/exchanges/')
         .then(res => res.json())
@@ -36,8 +44,25 @@ const CalculatorContainer = () => {
         .finally(() => console.log('exchanges cargados'));
 }, []);
 
+
+useEffect(() =>{
+  const accessToken = window.localStorage.getItem("token")
+   fetch("http://localhost:3002/api/v1/users/profile", {
+    
+      headers: {
+        Authorization: `Bearer ${accessToken}`}})
+      .then(res => res.json())
+        .then((res) => {
+            setUser(res.data)
+        })
+        .catch(err => console.log('error de:', err))
+        .finally(() => console.log('profile cargado'))
+        
+
+}, [])
+
   useEffect(() => {
-    let option = data.map((dato) => dato.sourceName).filter(unique);
+    const option = data.map((dato) => dato.sourceName).filter(unique);
     setOptionsSource(option);
   }, [data]);
 
@@ -45,43 +70,59 @@ const CalculatorContainer = () => {
     const options = data.filter((target) => target.sourceName === selection.source);
     const option = options.map((dato) => dato.targetName);
     setOptionsTarget(option);
+    //console.log(option)
   }, [selection.source]);
+
 
   useEffect(() => {
     const options = data.filter(
       (targets) =>
         targets.sourceName === selection.source && targets.targetName === selection.target
     );
-
+      console.log(options)
     const comission = options.map((dato) => dato.comission);
     setComission(comission);
     let finalValue = options.map((dato) => dato.finalValue);
     setFinalValue(finalValue);
-  }, [selection.source, amount, selection.target]);
 
-  function calculator(comission, finalValue, amount) {
-    return amount * (1 - comission) * finalValue;
-  }
+    function calculator(comission, finalValue, amount) {
+      return amount * (1 - comission) * finalValue;
+    }
+    setResult(calculator(comission, finalValue, amount))
+    
+  }, [selection, amount]);
 
-  const result = calculator(comission, finalValue, amount);
+
+  useEffect(() => {
+    
+    setResult(result)
+    console.log(result)
+    
+  }, []);
+  
+  
+
+  
+ 
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let finalExchange = ({
-      targetName: selection.target,
-      sourceName: selection.source,
-      amount: amount,
-      result:result
-    });
-    createExchange(finalExchange)
+    // let finalExchange = ({
+    //   targetName: selection.target,
+    //   sourceName: selection.source,
+    //   amount: Number(amount),
+    // });
     
-    history("/login")
+    
+    // createExchange(finalExchange)
+    // console.log(user)
     
 
   };
 
   return (
-    <CalculatorForm
+    <ConfirmForm
       result={result}
       optionsSource={optionsSource}
       optionsTarget={optionsTarget}
@@ -94,9 +135,10 @@ const CalculatorContainer = () => {
       comission={comission}
       finalValue={finalValue}
       setSelection={setSelection}
-      selection={selection}
+      selection={selection} 
+      exchange={exchange}
     />
   );
 };
 
-export default CalculatorContainer;
+export default ConfirmContainer;

@@ -1,8 +1,7 @@
 
 
 #root{
-  height:100%;
-  margin:0;
+
 
 }
 
@@ -13,19 +12,3 @@ html, body{
   display: flex;
   flex-direction: column;
 }
-
-/* 
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-#component{
-  background-image: url(./assets/background2.png);
-  background-position-y: top;
-  background-size:cover;
-  background-repeat: no-repeat;
-  
-  
-} */
