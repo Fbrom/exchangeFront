@@ -1,0 +1,8 @@
+.color-nav{
+    background-color: rgb(70, 70, 189);
+    color: rgb(240, 240, 240);
+    border: none;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
+    padding: 1%;
+}

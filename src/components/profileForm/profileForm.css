@@ -1,0 +1,59 @@
+.container{
+    margin: 0%;
+    align-items: center;
+    text-align: center;
+}
+
+
+.inputData{
+    border:0;
+}
+
+
+.inputFile {
+    opacity: 0;
+    overflow: hidden;
+    text-align: center;
+   
+}
+
+    
+
+.inputfilecontainer{
+    background-color: rgb(228, 228, 228);
+    margin:0.1%;
+ 
+  
+    
+}
+
+.iborrainputfile{
+    width:100%;
+    height: auto;
+}
+
+.changePassword{
+    align-content: center;
+    text-align: center;
+    size:90%
+}
+
+h3{
+    text-align: center;
+}
+
+.eachContainer{
+    box-shadow: 0px 0px 5px 1px lightgray;
+    margin:3%
+}
+
+.Row{
+    padding: 1%;
+    margin-bottom: 3%;
+    text-align: center;
+    
+}
+
+.dniFiles{
+    align-content: center;
+}

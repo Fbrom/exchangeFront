@@ -1,10 +1,12 @@
 
 export default function appReducer(state, action) {
-    const payload = action.payload
-   
-        return  {...state.exchanges, payload
-        }
+    
+    switch(action.type) {
+        case "CREATE_EXCHANGE":
+        return  ({exchange:[state, action.payload]}
+        )}
+    }
+    
             
 
 
-}
