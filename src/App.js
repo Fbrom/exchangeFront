@@ -6,6 +6,7 @@ import LoginPage from "./pages/loginPage";
 import ConfirmPage from "./pages/confirmOperationPage";
 import { useReducer } from "react";
 import ProfilePage from "./pages/profilePage";
+import DashboardPage from "./pages/dashboardDivisas";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="confirm" element={<ConfirmPage />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="dashboardDivisas" element={<DashboardPage/>}/>
         </Routes>
       </BrowserRouter>
     </ContextProvider>

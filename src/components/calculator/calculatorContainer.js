@@ -7,13 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 const CalculatorContainer = () => {
   const { createExchange, exchange } = useContext(GlobalExchange);
-  const [data, setData] = useState([]);
-  const [optionsSource, setOptionsSource] = useState([]);
-  const [optionsTarget, setOptionsTarget] = useState([]);
+  const [data, setData] = useState([""]);
+  const [optionsSource, setOptionsSource] = useState([""]);
+  const [optionsTarget, setOptionsTarget] = useState([""]);
   const [selection, setSelection] = useState({});
-  const [amount, setAmount] = useState();
-  const [comission, setComission] = useState();
-  const [finalValue, setFinalValue] = useState();
+  const [amount, setAmount] = useState("");
+  const [comission, setComission] = useState("");
+  const [finalValue, setFinalValue] = useState("");
   const [submit, setSubmit] = useState("false");
 
   const unique = (value, index, self) => {

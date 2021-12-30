@@ -6,19 +6,19 @@ import { GlobalExchange } from "../../context/globalcontext";
 const ConfirmContainer = () => {
   const { createExchange, exchange } = useContext(GlobalExchange);
 
-  const [data, setData] = useState([]);
-  const [optionsSource, setOptionsSource] = useState([]);
-  const [optionsTarget, setOptionsTarget] = useState([]);
+  const [data, setData] = useState([""]);
+  const [optionsSource, setOptionsSource] = useState([""]);
+  const [optionsTarget, setOptionsTarget] = useState([""]);
   const [selection, setSelection] = useState({
-    source: exchange[1].sourceName,
-    target: exchange[1].targetName,
+    source: exchange.sourceName,
+    target: exchange.targetName,
   });
-  const [amount, setAmount] = useState([exchange[1].amount]);
-  const [result, setResult] = useState([exchange[1].result]);
-  const [comission, setComission] = useState();
-  const [finalValue, setFinalValue] = useState();
-  const [submit, setSubmit] = useState("false");
-  const [user, setUser] = useState([]);
+  const [amount, setAmount] = useState([exchange.amount]);
+  const [result, setResult] = useState([exchange.result]);
+  const [comission, setComission] = useState("");
+  const [finalValue, setFinalValue] = useState("");
+  //const [submit, setSubmit] = useState("");
+  // const [user, setUser] = useState([""]);
 
   const unique = (value, index, self) => {
     return self.indexOf(value) === index;
@@ -34,20 +34,20 @@ const ConfirmContainer = () => {
       .finally(() => console.log("exchanges cargados"));
   }, []);
 
-  useEffect(() => {
-    const accessToken = window.localStorage.getItem("token");
-    fetch("http://localhost:3002/api/v1/users/profile", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch((err) => console.log("error de:", err))
-      .finally(() => console.log("profile cargado"));
-  }, []);
+  // useEffect(() => {
+  //   const accessToken = window.localStorage.getItem("token");
+  //   fetch("http://localhost:3002/api/v1/users/profile", {
+  //     headers: {
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       setUser(res.data);
+  //     })
+  //     .catch((err) => console.log("error de:", err))
+  //     .finally(() => console.log("profile cargado"));
+  // }, []);
 
   useEffect(() => {
     const option = data.map((dato) => dato.sourceName).filter(unique);
@@ -94,7 +94,7 @@ const ConfirmContainer = () => {
       optionsTarget={optionsTarget}
       setAmount={setAmount}
       amount={amount}
-      setSubmit={setSubmit}
+      //setSubmit={setSubmit}
       handleSubmit={handleSubmit}
       comission={comission}
       finalValue={finalValue}

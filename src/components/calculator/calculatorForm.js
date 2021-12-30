@@ -8,12 +8,9 @@ const CalculatorForm = ({
   handleSubmit,
   optionsSource,
   optionsTarget,
-  setSource,
-  setTarget,
   setAmount,
   amount,
   result,
-  exchange,
 }) => {
   return (
     <>
@@ -51,11 +48,11 @@ const CalculatorForm = ({
                   }));
                 }}
               >
-                <option value="Select your currency" hidden>
+                <option key="1" value="Select your currency" hidden>
                   Select your currency
                 </option>
                 if(optionSource)
-                {optionsSource.map((source) => (
+                {optionsSource?.map((source) => (
                   <option key={source} value={source}>
                     {source}
                   </option>
@@ -94,11 +91,11 @@ const CalculatorForm = ({
                   }));
                 }}
               >
-                <option value="Please select the origin currency" hidden>
+                <option key="2" value="Please select the origin currency" hidden>
                   Please select the origin currency
                 </option>
-                {optionsTarget.map((target) => (
-                  <option value={target}>{target}</option>
+                {optionsTarget?.map((target) => (
+                  <option key= {target} value={target}>{target}</option>
                 ))}
               </Form.Select>
             </div>

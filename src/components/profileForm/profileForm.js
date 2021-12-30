@@ -1,8 +1,9 @@
 import { Container, Row, Col, Form, Button, Modal } from "react-bootstrap";
 import "./profileForm.css";
-import ReactFlagsSelect from "react-flags-select";
+import ReactFlagsSelect, { Im } from "react-flags-select";
 import React, { useEffect, useState, useContext } from "react";
 import { FaUserCircle } from "react-icons/fa";
+import ImageUpLoader from 'react-images-upload'
 
 const profileForm = ({
   user,
@@ -15,17 +16,27 @@ const profileForm = ({
   handleSave,
   setUser,
   email,
+
 }) => {
   return (
     <div className="allPage">
       <div className="eachContainer">
+      <Form onSubmit={handleSubmit}>
         <div className="Row">
-          <FaUserCircle color="lightblue" size={150} />
+        <Form.Control
+          type="file"
+          name="selfie"
+          onChange={(e) => {
+            setUser((prevstate) => ({
+              ...prevstate,
+              [e.target.name]: e.target.value,
+            }))
+          } } />
         </div>
         <div className="Row">
           <h3>Datos personales</h3>
         </div>
-        <Form onSubmit={handleSubmit}>
+        
           <Row>
             <Col>
               <Form.Control
@@ -113,23 +124,19 @@ const profileForm = ({
               />
             </Col>
           </Row>
-
           <div className="eachContainer">
             <div className="Row">
               <h3>Datos personales de identificación</h3>
             </div>
             <div>
               <Row>
-                <Col>
-                  <Form.Control
-                    className="inputData"
-                    name="state"
-                    placeholder="Nacionalidad"
-                    value={user?.state}
-                    onChange={(e) => {
+                <Col className="col-md-3">
+                  <ReactFlagsSelect
+                    selected={user?.birthCountry}
+                    onSelect={(e) => {
                       setUser((prevstate) => ({
                         ...prevstate,
-                        [e.target.name]: e.target.value,
+                        birthCountry: e,
                       }));
                     }}
                   />
@@ -157,23 +164,27 @@ const profileForm = ({
                   />
                 </Col>
                 <Col>
-                  <Form.Select
-                    name="documentType"
-                    className="inputData"
-                    size="sm"
-                  >
-                    <option>Open this select menu</option>
-                    <option value="1">{user?.documentType}</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    onChange=
-                    {(e) => {
-                      setUser((prevstate) => ({
-                        ...prevstate,
-                        [e.target.name]: e.target.value,
-                      }));
-                    }}
-                  </Form.Select>
+                  <Form.Group controlId="formBasicSelect">
+                    <Form.Control
+                      as="select"
+                      name="documentType"
+                      value={user?.documentType}
+                      onChange={(e) => {
+                        setUser((prevstate) => ({
+                          ...prevstate,
+                          [e.target.name]: e.target.value,
+                        }));
+                      }}
+                    >
+                      <option value="Documento Nacional de Identidad">
+                        Documento Nacioanl de Identidad
+                      </option>
+                      <option value="Cedula de Identidad">
+                        Cedula de identidad
+                      </option>
+                      <option value="Pasaporte">Pasaporte</option>
+                    </Form.Control>
+                  </Form.Group>
                 </Col>
                 <Col>
                   <Form.Control
@@ -230,12 +241,14 @@ const profileForm = ({
               </Row>
               <Row>
                 <Col className="col-md-3">
-                  <Form.Control className="inputData" />
                   <ReactFlagsSelect
-                  // selected={selected}
-                  // onSelect={onSelect}
-                  // customLabels={customLabels}
-                  // searchable={searchable}
+                    selected={user?.currentCountry}
+                    onSelect={(e) => {
+                      setUser((prevstate) => ({
+                        ...prevstate,
+                        currentCountry: e,
+                      }));
+                    }}
                   />
                 </Col>
               </Row>
@@ -245,33 +258,46 @@ const profileForm = ({
             <div className="Row">
               <h3>Datos personales de identificación</h3>
             </div>
-            <div>
-              <div className="dniFiles">
-                <div className="inputfilecontainer col-md-5">
-                  <input
-                    name="file"
-                    id="file"
-                    className="inputFile"
-                    type="file"
-                  ></input>
-                  <label forhtml="file">
-                    <span className="iborrainputfile">DNI FRONTAL</span>
-                  </label>
-                </div>
-                <div className="col-md-1"></div>
-                <div className="inputfilecontainer col-md-5">
-                  <input
-                    name="file"
-                    id="file"
-                    className="inputFile"
-                    type="file"
-                  ></input>
-                  <label forhtml="file">
-                    <span className="iborrainputfile">DNI POSTERIOR</span>
-                  </label>
+            <Col>
+              <div>
+                <div className="dniFiles">
+                  <div className="inputfilecontainer col-md-5">
+                    <Form.Label className="info_documentos_label">
+                      DNI FRENTE
+                    </Form.Label>
+                    <Form.Control
+                      className="info_documentos_campos"
+                      type="file"
+                      name="dniFront"
+                      placeholder="DNI dorso"
+                      onChange={(e) => {
+                        setUser((prevstate) => ({
+                          ...prevstate,
+                          [e.target.name]: e.target.value,
+                        }));
+                      }}
+                    />
+                  </div>
+                  <div className="inputfilecontainer col-md-5">
+                    <Form.Label className="info_documentos_label">
+                      DNI POSTERIOR
+                    </Form.Label>
+                    <Form.Control
+                      className="info_documentos_campos"
+                      type="file"
+                      name="dniFront"
+                      placeholder="DNI dorso"
+                      onChange={(e) => {
+                        setUser((prevstate) => ({
+                          ...prevstate,
+                          [e.target.name]: e.target.value,
+                        }));
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            </Col>
           </div>
           <div className="eachContainer">
             <div className="Row">
