@@ -4,12 +4,14 @@ import ProfileForm from "./profileForm";
 
 const ProfileContainer = () => {
   const [user, setUser] = useState({});
-  const [contraseña, setContraseña] = useState([]);
+  const [contraseña, setContraseña] = useState([""]);
   const [show, setShow] = useState(false);
   const [contraseñaAntigua, setContraseñaAntigua] = useState("");
   const [contraseñaNueva, setContraseñaNueva] = useState("");
   const [contraseñaNueva1, setContraseñaNueva1] = useState("");
-  const [email, setEmail] = useState([]);
+  const [email, setEmail] = useState([""]);
+  const [selfie, setSelfie] = useState("")
+
 
   useEffect(() => {
     const accessToken = window.localStorage.getItem("token");
@@ -47,8 +49,33 @@ const ProfileContainer = () => {
     setUser(user);
   }, [user]);
 
+  useEffect(()=>{
+    const accessToken = window.localStorage.getItem("token");
+    Axios.put("http://localhost:3002/api/v1/users/profile/selfie/", user.selfie, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+
+  }, [user.selfie])
+    
+
+  const handleSelfie = (event) => {
+       console.log(user.selfie)
+    const accessToken = window.localStorage.getItem("token");
+    Axios.put("http://localhost:3002/api/v1/users/profile/selfie/", user.selfie, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+  }
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(user)
 
     const accessToken = window.localStorage.getItem("token");
     Axios.put("http://localhost:3002/api/v1/users/profile", user, {
@@ -57,6 +84,7 @@ const ProfileContainer = () => {
       },
     });
   };
+
 
   return (
     <ProfileForm
@@ -73,6 +101,10 @@ const ProfileContainer = () => {
       handleSave={handleSave}
       user={user}
       email={email}
+      selfie={selfie}
+      setSelfie={setSelfie}
+      handleSelfie={handleSelfie}
+    
     />
   );
 };

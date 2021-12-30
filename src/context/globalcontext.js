@@ -1,8 +1,7 @@
 import React, { createContext, useReducer } from "react";
 
-import appReducer from "./appReducer";
+import appReducer, {initialState} from "./appReducer";
 
-const initialState = { exchange: {} };
 
 export const GlobalExchange = createContext(initialState);
 

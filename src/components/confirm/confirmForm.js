@@ -53,11 +53,11 @@ const confirmForm = ({
                   }));
                 }}
               >
-                <option value="" hidden>
+                <option key = "option"  value="" hidden>
                   {selection.source}
                 </option>
                 {optionsSource.map((source) => (
-                  <option value={source}>{source}</option>
+                  <option key={source} value={source}>{source}</option>
                 ))}
               </Form.Select>
             </div>
@@ -95,11 +95,11 @@ const confirmForm = ({
                   }));
                 }}
               >
-                <option value="" hidden>
+                <option key="option1"value="" hidden>
                   {selection.target}
                 </option>
                 {optionsTarget.map((target) => (
-                  <option value={target}>{target}</option>
+                  <option key={target} value={target}>{target}</option>
                 ))}
               </Form.Select>
             </div>
