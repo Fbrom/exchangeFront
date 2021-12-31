@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import CalculatorForm from "./calculatorForm";
-//simport datos from "../../datos.json";
 import CalculatorPage from "../../pages/calculatorPage";
 import { GlobalExchange } from "../../context/globalcontext";
 import { useNavigate } from "react-router-dom";
+import { unique, calculator } from "../../util";
 
 const CalculatorContainer = () => {
   const { createExchange, exchange } = useContext(GlobalExchange);
@@ -16,11 +16,9 @@ const CalculatorContainer = () => {
   const [finalValue, setFinalValue] = useState("");
   const [submit, setSubmit] = useState("false");
 
-  const unique = (value, index, self) => {
-    return self.indexOf(value) === index;
-  };
-
   let history = useNavigate();
+
+  localStorage.clear();
 
   useEffect(() => {
     fetch("http://localhost:3002/api/v1/exchanges/")
@@ -33,8 +31,8 @@ const CalculatorContainer = () => {
   }, []);
 
   useEffect(() => {
-    let option = data.map((dato) => dato.sourceName).filter(unique);
-    setOptionsSource(option);
+    const options = data.map((dato) => dato.sourceName).filter(unique);
+    setOptionsSource(options);
   }, [data]);
 
   useEffect(() => {
@@ -52,21 +50,17 @@ const CalculatorContainer = () => {
         targets.targetName === selection.target
     );
 
-    const comission = options.map((dato) => dato.comission);
-    setComission(comission);
-    let finalValue = options.map((dato) => dato.finalValue);
+    const comissions = options.map((dato) => dato.comission);
+    setComission(parseFloat(comissions));
+    const finalValue = options.map((dato) => dato.finalValue);
     setFinalValue(finalValue);
   }, [selection.source, amount, selection.target]);
-
-  function calculator(comission, finalValue, amount) {
-    return amount * (1 - comission) * finalValue;
-  }
 
   const result = calculator(comission, finalValue, amount);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let finalExchange = {
+    const finalExchange = {
       targetName: selection.target,
       sourceName: selection.source,
       amount: amount,
@@ -82,8 +76,6 @@ const CalculatorContainer = () => {
       result={result}
       optionsSource={optionsSource}
       optionsTarget={optionsTarget}
-      //setSource={setSource}
-      //setTarget={setTarget}
       setAmount={setAmount}
       amount={amount}
       setSubmit={setSubmit}

@@ -1,7 +1,6 @@
 import { Form, Button } from "react-bootstrap";
 import React from "react";
 
-
 const confirmForm = ({
   selection,
   setSelection,
@@ -33,7 +32,7 @@ const confirmForm = ({
                 type="number"
                 placeholder="0"
                 min="0"
-                onChange={(e) => setAmount(e.target.value)}
+                onChange={(e) => setAmount(parseFloat(e.target.value))}
               />
             </div>
             <div className="col-sm-12 col-md-6">
@@ -53,11 +52,13 @@ const confirmForm = ({
                   }));
                 }}
               >
-                <option key = "option"  value="" hidden>
+                <option key="option" value="" hidden>
                   {selection.source}
                 </option>
                 {optionsSource.map((source) => (
-                  <option key={source} value={source}>{source}</option>
+                  <option key={Math.random()} value={source}>
+                    {source}
+                  </option>
                 ))}
               </Form.Select>
             </div>
@@ -95,11 +96,13 @@ const confirmForm = ({
                   }));
                 }}
               >
-                <option key="option1"value="" hidden>
+                <option value="" hidden>
                   {selection.target}
                 </option>
                 {optionsTarget.map((target) => (
-                  <option key={target} value={target}>{target}</option>
+                  <option key={Math.random()} value={target}>
+                    {target}
+                  </option>
                 ))}
               </Form.Select>
             </div>
@@ -114,7 +117,6 @@ const confirmForm = ({
                 selection.source == undefined ||
                 selection.target == undefined
               }
-              href="/login"
               variant="primary"
               type="submit"
             >

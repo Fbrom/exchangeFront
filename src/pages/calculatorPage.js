@@ -2,7 +2,7 @@ import "./calculatorPage.css";
 import React from "react";
 import CalculatorContainer from "../components/calculator/calculatorContainer";
 
-const CalculatorPage = (data) => {
+const CalculatorPage = () => {
   return (
     <>
       <div className="component">
@@ -14,9 +14,6 @@ const CalculatorPage = (data) => {
               <li value={3}>Procede a llenar el formulario y listo!</li>
             </ol>
           </div>
-          {/* <div className=".col-12 col-lg-auto">
-                        
-                        </div> */}
           <div className="col-sm-12 col-md-6">
             <CalculatorContainer />
           </div>

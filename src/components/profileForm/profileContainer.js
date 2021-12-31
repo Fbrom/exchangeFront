@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import ProfileForm from "./profileForm";
+import { useNavigate } from "react-router-dom";
 
 const ProfileContainer = () => {
   const [user, setUser] = useState({});
   const [contraseña, setContraseña] = useState([""]);
   const [show, setShow] = useState(false);
-  const [contraseñaAntigua, setContraseñaAntigua] = useState("");
   const [contraseñaNueva, setContraseñaNueva] = useState("");
   const [contraseñaNueva1, setContraseñaNueva1] = useState("");
+  const [contraseñaAntigua, setContraseñaAntigua] = useState("");
   const [email, setEmail] = useState([""]);
-  const [selfie, setSelfie] = useState("")
-
+  const [selfie, setSelfie] = useState("");
+  let history = useNavigate();
 
   useEffect(() => {
     const accessToken = window.localStorage.getItem("token");
@@ -43,48 +44,57 @@ const ProfileContainer = () => {
       alert("La contraseña debe tener al menos 8 caracteres o no coinciden");
     }
   };
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+  };
 
   useEffect(() => {
     setUser(user);
   }, [user]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const accessToken = window.localStorage.getItem("token");
-    Axios.put("http://localhost:3002/api/v1/users/profile/selfie/", user.selfie, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
 
-
-  }, [user.selfie])
-    
+    const selfie = ["61b905747b80565e94e34d99", "selfie", user.selfie];
+    Axios.put(
+      "http://localhost:3002/api/v1/users/profile/selfie/",
+      { selfie },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  }, [user.selfie]);
 
   const handleSelfie = (event) => {
-       console.log(user.selfie)
     const accessToken = window.localStorage.getItem("token");
-    Axios.put("http://localhost:3002/api/v1/users/profile/selfie/", user.selfie, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-
-  }
-
+    Axios.put(
+      "http://localhost:3002/api/v1/users/profile/selfie/",
+      user.selfie,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(user)
+
+    user.password = contraseñaAntigua;
+    user.newPassword = contraseña;
 
     const accessToken = window.localStorage.getItem("token");
     Axios.put("http://localhost:3002/api/v1/users/profile", user, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    });
+    })
+      .then(alert("Sus datos fueron modificados correctamente"))
+      .then(history("/confirm"));
   };
-
 
   return (
     <ProfileForm
@@ -94,7 +104,6 @@ const ProfileContainer = () => {
       handleShow={handleShow}
       show={show}
       setShow={setShow}
-      setContraseñaAntigua={setContraseñaAntigua}
       setContraseñaNueva={setContraseñaNueva}
       contraseñaNueva={contraseñaNueva}
       setContraseñaNueva1={setContraseñaNueva1}
@@ -104,7 +113,8 @@ const ProfileContainer = () => {
       selfie={selfie}
       setSelfie={setSelfie}
       handleSelfie={handleSelfie}
-    
+      setContraseñaAntigua={setContraseñaAntigua}
+      contraseñaAntigua={contraseñaAntigua}
     />
   );
 };

@@ -1,6 +1,7 @@
 import { Form, Button } from "react-bootstrap";
 import React from "react";
 import { HiCurrencyDollar } from "react-icons/hi";
+import "./calculatorForm.css";
 
 const CalculatorForm = ({
   selection,
@@ -24,17 +25,10 @@ const CalculatorForm = ({
                 type="number"
                 placeholder="0"
                 min="0"
-                onChange={(e) => setAmount(e.target.value)}
+                onChange={(e) => setAmount(parseFloat(e.target.value))}
               />
             </div>
-            <div
-              className="col-sm-2 col-md-1"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+            <div className="symbol col-sm-2 col-md-1">
               <HiCurrencyDollar color="blue" size={20} />
             </div>
             <div className="col-sm-12 col-md-6">
@@ -48,12 +42,12 @@ const CalculatorForm = ({
                   }));
                 }}
               >
-                <option key="1" value="Select your currency" hidden>
+                <option key="option" value="Select your currency" hidden>
                   Select your currency
                 </option>
                 if(optionSource)
-                {optionsSource?.map((source) => (
-                  <option key={source} value={source}>
+                {optionsSource?.map((source, index) => (
+                  <option key={index} value={source}>
                     {source}
                   </option>
                 ))}
@@ -70,14 +64,7 @@ const CalculatorForm = ({
                 value={result}
               />
             </div>
-            <div
-              className="col-sm-2 col-md-1"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+            <div className="symbol col-sm-2 col-md-1">
               <HiCurrencyDollar color="blue" size={20} />
             </div>
             <div className="col-sm-12 col-md-6">
@@ -91,11 +78,17 @@ const CalculatorForm = ({
                   }));
                 }}
               >
-                <option key="2" value="Please select the origin currency" hidden>
+                <option
+                  key="2"
+                  value="Please select the origin currency"
+                  hidden
+                >
                   Please select the origin currency
                 </option>
-                {optionsTarget?.map((target) => (
-                  <option key= {target} value={target}>{target}</option>
+                {optionsTarget?.map((target, index) => (
+                  <option key={index} value={target}>
+                    {target}
+                  </option>
                 ))}
               </Form.Select>
             </div>
@@ -109,7 +102,6 @@ const CalculatorForm = ({
                 selection.source == undefined ||
                 selection.target == undefined
               }
-              //href="/login"
               variant="primary"
               type="submit"
             >

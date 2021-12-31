@@ -1,4 +1,3 @@
-import "./App.css";
 import CalculatorPage from "../src/pages/calculatorPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ContextProvider, createContext } from "../src/context/globalcontext";

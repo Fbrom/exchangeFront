@@ -1,8 +1,6 @@
-export const initialState={
-  exchange: {}
-}
-
-
+export const initialState = {
+  exchange: {},
+};
 
 export default function appReducer(state, action) {
   switch (action.type) {
