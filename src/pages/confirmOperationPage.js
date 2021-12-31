@@ -5,7 +5,6 @@ import "./confirmOperationPage.css";
 import NavBar from "./navBar";
 
 const ConfirmPage = () => {
-  const values = useContext(GlobalExchange);
   return (
     <>
       <NavBar />

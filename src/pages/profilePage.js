@@ -1,8 +1,7 @@
 import React from "react";
 import NavBar from "./navBar";
 import ProfileContainer from "../components/profileForm/profileContainer";
-import { Row } from "react-bootstrap";
-//import "./profilePage.css"
+
 
 const profile = () => {
   return (

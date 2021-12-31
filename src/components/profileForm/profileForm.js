@@ -1,9 +1,7 @@
-import { Container, Row, Col, Form, Button, Modal } from "react-bootstrap";
+import { Row, Col, Form, Button, Modal } from "react-bootstrap";
 import "./profileForm.css";
-import ReactFlagsSelect, { Im } from "react-flags-select";
-import React, { useEffect, useState, useContext } from "react";
-import { FaUserCircle } from "react-icons/fa";
-import ImageUpLoader from 'react-images-upload'
+import ReactFlagsSelect from "react-flags-select";
+import React from "react";
 
 const profileForm = ({
   user,
@@ -16,114 +14,113 @@ const profileForm = ({
   handleSave,
   setUser,
   email,
-
+  contraseñaAntigua,
+  setContraseñaAntigua
 }) => {
   return (
     <div className="allPage">
-      <div className="eachContainer">
-      <Form onSubmit={handleSubmit}>
-        <div className="Row">
-        <Form.Control
-          type="file"
-          name="selfie"
-          onChange={(e) => {
-            setUser((prevstate) => ({
-              ...prevstate,
-              [e.target.name]: e.target.value,
-            }))
-          } } />
-        </div>
-        <div className="Row">
-          <h3>Datos personales</h3>
-        </div>
-        
-          <Row>
-            <Col>
-              <Form.Control
-                className="inputData"
-                name="username"
-                placeholder="nombre"
-                value={user?.username}
-                onChange={(e) => {
-                  setUser((prevstate) => ({
-                    ...prevstate,
-                    [e.target.name]: e.target.value,
-                  }));
-                }}
+      <div>
+        <Form onSubmit={handleSubmit}>
+          <div className="eachContainer">
+            <div className="Row">
+              <img
+                className="selfie"
+                rounded="true"
+                src={`http://localhost:3002/api/v1/files/users/${user.selfie}`}
+                alt={user?.selfie}
               />
-            </Col>
-            <Col>
-              <Form.Control
-                className="inputData"
-                name="lastname"
-                placeholder="Apellido"
-                value={user?.lastname}
-                onChange={(e) => {
-                  setUser((prevstate) => ({
-                    ...prevstate,
-                    [e.target.name]: e.target.value,
-                  }));
-                }}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Control
-                className="inputData"
-                disabled
-                placeholder={email}
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                className="inputData"
-                name="phoneNumber"
-                type="number"
-                maxLength={10}
-                cds
-                minLength={8}
-                placeholder="telefono"
-                value={user?.phoneNumber}
-                onChange={(e) => {
-                  setUser((prevstate) => ({
-                    ...prevstate,
-                    [e.target.name]: e.target.value,
-                  }));
-                }}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Control
-                className="inputData"
-                name="birthdate"
-                type="date"
-                value={user?.birthdate?.replace(/\//g, "-")}
-                onChange={(e) => {
-                  setUser((prevstate) => ({
-                    ...prevstate,
-                    [e.target.name]: e.target.value.replace(/\-/g, "/"),
-                  }));
-                }}
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                className="inputData"
-                name="occupation"
-                placeholder="profesion"
-                value={user?.occupation}
-                onChange={(e) => {
-                  setUser((prevstate) => ({
-                    ...prevstate,
-                    [e.target.name]: e.target.value,
-                  }));
-                }}
-              />
-            </Col>
-          </Row>
+            </div>
+            <div className="Row">
+              <h3>Datos personales</h3>
+            </div>
+            <Row>
+              <Col>
+                <Form.Control
+                  className="inputData"
+                  name="username"
+                  placeholder="nombre"
+                  value={user?.username}
+                  onChange={(e) => {
+                    setUser((prevstate) => ({
+                      ...prevstate,
+                      [e.target.name]: e.target.value,
+                    }));
+                  }}
+                />
+              </Col>
+              <Col>
+                <Form.Control
+                  className="inputData"
+                  name="lastname"
+                  placeholder="Apellido"
+                  value={user?.lastname}
+                  onChange={(e) => {
+                    setUser((prevstate) => ({
+                      ...prevstate,
+                      [e.target.name]: e.target.value,
+                    }));
+                  }}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Control
+                  className="inputData"
+                  disabled
+                  placeholder={email}
+                />
+              </Col>
+              <Col>
+                <Form.Control
+                  className="inputData"
+                  name="phoneNumber"
+                  type="number"
+                  maxLength={10}
+                  cds
+                  minLength={8}
+                  placeholder="telefono"
+                  value={user?.phoneNumber}
+                  onChange={(e) => {
+                    setUser((prevstate) => ({
+                      ...prevstate,
+                      [e.target.name]: e.target.value,
+                    }));
+                  }}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Control
+                  className="inputData"
+                  name="birthdate"
+                  type="date"
+                  value={user?.birthdate?.replace(/\//g, "-")}
+                  onChange={(e) => {
+                    setUser((prevstate) => ({
+                      ...prevstate,
+                      [e.target.name]: e.target.value.replace(/\-/g, "/"),
+                    }));
+                  }}
+                />
+              </Col>
+              <Col>
+                <Form.Control
+                  className="inputData"
+                  name="occupation"
+                  placeholder="profesion"
+                  value={user?.occupation}
+                  onChange={(e) => {
+                    setUser((prevstate) => ({
+                      ...prevstate,
+                      [e.target.name]: e.target.value,
+                    }));
+                  }}
+                />
+              </Col>
+            </Row>
+          </div>
           <div className="eachContainer">
             <div className="Row">
               <h3>Datos personales de identificación</h3>
@@ -141,7 +138,8 @@ const profileForm = ({
                     }}
                   />
                 </Col>
-                <Col>
+                <Col className="col-md-4"></Col>
+                <Col className="col-md-3">
                   <Form.Control
                     className="inputData"
                     name="documentDate"
@@ -308,17 +306,23 @@ const profileForm = ({
                   id="custom-switch"
                   onClick={handleShow}
                 />
-                <Form.Check
-                  disabled
-                  type="switch"
-                  id="disabled-custom-switch"
-                />
                 <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
                     <Modal.Title>Cambiá tu contraseña</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                     <form>
+                    <Form.Group
+                        className="mb-3"
+                        controlId="formBasicPassword"
+                      >
+                        <Form.Label>Antigua contraseña</Form.Label>
+                        <Form.Control
+                          type="password"
+                          placeholder="Nueva contraseña"
+                          onChange={(e) => setContraseñaAntigua(e.target.value)}
+                        />
+                      </Form.Group>
                       <Form.Group
                         className="mb-3"
                         controlId="formBasicPassword"

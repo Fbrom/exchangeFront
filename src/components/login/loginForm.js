@@ -1,6 +1,5 @@
 import { Form, Button, Row } from "react-bootstrap";
-import React, { useEffect, useState, useContext } from "react";
-import { GlobalExchange } from "../../context/globalcontext";
+import React from "react";
 
 const loginForm = ({ setUser, setPassword, handleSubmit }) => {
   return (
@@ -25,7 +24,6 @@ const loginForm = ({ setUser, setPassword, handleSubmit }) => {
               onChange={(e) => setUser(e.target.value)}
             />
           </Form.Group>
-
           <Form.Group className="mb-3 col-md-8" controlId="formBasicPassword">
             <Form.Label>Contraseña</Form.Label>
             <Form.Control
@@ -34,12 +32,7 @@ const loginForm = ({ setUser, setPassword, handleSubmit }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-          <Button
-            className="col-md-8"
-            variant="primary"
-            type="submit"
-            //href="/confirm"
-          >
+          <Button className="col-md-8" variant="primary" type="submit">
             Acceder
           </Button>
           <div className="col-md-12">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import ConfirmForm from "./confirmForm";
 import { GlobalExchange } from "../../context/globalcontext";
-
+import axios from "axios";
 
 const ConfirmContainer = () => {
   const { createExchange, exchange } = useContext(GlobalExchange);
@@ -13,12 +13,10 @@ const ConfirmContainer = () => {
     source: exchange.sourceName,
     target: exchange.targetName,
   });
-  const [amount, setAmount] = useState([exchange.amount]);
-  const [result, setResult] = useState([exchange.result]);
+  const [amount, setAmount] = useState(exchange.amount);
+  const [result, setResult] = useState(exchange.result);
   const [comission, setComission] = useState("");
   const [finalValue, setFinalValue] = useState("");
-  //const [submit, setSubmit] = useState("");
-  // const [user, setUser] = useState([""]);
 
   const unique = (value, index, self) => {
     return self.indexOf(value) === index;
@@ -33,21 +31,6 @@ const ConfirmContainer = () => {
       .catch((err) => console.log("error de:", err))
       .finally(() => console.log("exchanges cargados"));
   }, []);
-
-  // useEffect(() => {
-  //   const accessToken = window.localStorage.getItem("token");
-  //   fetch("http://localhost:3002/api/v1/users/profile", {
-  //     headers: {
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       setUser(res.data);
-  //     })
-  //     .catch((err) => console.log("error de:", err))
-  //     .finally(() => console.log("profile cargado"));
-  // }, []);
 
   useEffect(() => {
     const option = data.map((dato) => dato.sourceName).filter(unique);
@@ -68,9 +51,9 @@ const ConfirmContainer = () => {
         targets.sourceName === selection.source &&
         targets.targetName === selection.target
     );
-    const comission = options.map((dato) => dato.comission);
-    setComission(comission);
-    let finalValue = options.map((dato) => dato.finalValue);
+    const comissions = options.map((dato) => dato.comission);
+    setComission(Number(comissions).toFixed(5));
+    const finalValue = options.map((dato) => dato.finalValue);
     setFinalValue(finalValue);
 
     function calculator(comission, finalValue, amount) {
@@ -80,11 +63,28 @@ const ConfirmContainer = () => {
   }, [selection, amount]);
 
   useEffect(() => {
-    setResult(result);
+    setResult(parseFloat(result));
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const sendMoney = {
+      valueSent: amount,
+      target: selection.target,
+      source: selection.source,
+      comission: comission,
+      valueToSent: result,
+      date: "",
+    };
+    const accessToken = window.localStorage.getItem("token");
+    axios
+      .post("http://localhost:3002/api/v1/transactions", sendMoney, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(alert("TU DINERO FUE ENVIADO"));
   };
 
   return (
@@ -94,7 +94,6 @@ const ConfirmContainer = () => {
       optionsTarget={optionsTarget}
       setAmount={setAmount}
       amount={amount}
-      //setSubmit={setSubmit}
       handleSubmit={handleSubmit}
       comission={comission}
       finalValue={finalValue}
