@@ -1,18 +1,16 @@
 import { Form, Button, Table, Modal } from "react-bootstrap";
 import React from "react";
+import "./dashboardForm.css"
 
 const DivisasForm = ({
   data,
   handleShow,
   show,
   handleClose,
-  setData,
   setNewData,
-  handleEdit,
   setShow,
   setShowEdit,
   showEdit,
-  newData,
   handleCloseEdit,
   target,
   setTarget,
@@ -42,17 +40,17 @@ const DivisasForm = ({
         <tbody>
           {data?.map((valor, index) => (
             <tr key={index}>
-              <td key={valor.sourceName}>{valor.sourceName}</td>
-              <td key={valor.targetName}>{valor.targetName}</td>
-              <td key={valor.comission}>{valor.comission}</td>
-              <td key={valor.finalValue}>{valor.finalValue}</td>
-              <td key={valor.type}>{valor.type}</td>
-              <td key={valor.id}>
+              <td key={valor?.sourceName}>{valor?.sourceName}</td>
+              <td key={valor?.targetName}>{valor?.targetName}</td>
+              <td key={valor?.comission}>{valor?.comission}</td>
+              <td key={valor?.finalValue}>{valor?.finalValue}</td>
+              <td key={valor?.type}>{valor?.type}</td>
+              <td key={valor?.id}>
                 <>
                   <Button
                     variant="primary"
                     name="edit"
-                    id={valor.id}
+                    id={valor?.id}
                     onClick={(e) => {
                       setNewData({ [e.target.name]: e.target.id });
                     }}
@@ -61,13 +59,13 @@ const DivisasForm = ({
                   </Button>
                   <Modal
                     show={showEdit}
+                    size="lg"
                     onHide={() => setShowEdit(false)}
-                    dialogClassName="modal-90w"
                     aria-labelledby="example-custom-modal-styling-title"
                   >
                     <Modal.Header closeButton>
                       <Modal.Title id="example-custom-modal-styling-title">
-                        Custom Modal Styling
+                        Edita esta divisa
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -143,7 +141,7 @@ const DivisasForm = ({
                   </Modal>
                 </>
                 <Button
-                  variant="primary"
+                  variant="danger"
                   name="delete"
                   id={valor.id}
                   onClick={(e) => {

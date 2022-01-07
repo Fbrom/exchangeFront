@@ -14,8 +14,14 @@ const profileForm = ({
   handleSave,
   setUser,
   email,
-  contraseñaAntigua,
-  setContraseñaAntigua
+  handleDniFront,
+  // contraseñaAntigua,
+  setContraseñaAntigua,
+  handleSelfie,
+  handleDniBack,
+  dniFront,
+  // setSelfie,
+  // selfie
 }) => {
   return (
     <div className="allPage">
@@ -23,12 +29,14 @@ const profileForm = ({
         <Form onSubmit={handleSubmit}>
           <div className="eachContainer">
             <div className="Row">
-              <img
-                className="selfie"
-                rounded="true"
-                src={`http://localhost:3002/api/v1/files/users/${user.selfie}`}
-                alt={user?.selfie}
-              />
+              <input id="fileInput" type="file" onChange={handleSelfie}></input>
+              <label htmlFor="fileInput" className="selfie">
+                <img
+                  className="selfie"
+                  src={`http://localhost:3002/api/v1/files/users/${user?.selfie}`}
+                  alt={user?.selfie}
+                />
+              </label>
             </div>
             <div className="Row">
               <h3>Datos personales</h3>
@@ -77,7 +85,6 @@ const profileForm = ({
                   name="phoneNumber"
                   type="number"
                   maxLength={10}
-                  cds
                   minLength={8}
                   placeholder="telefono"
                   value={user?.phoneNumber}
@@ -260,38 +267,36 @@ const profileForm = ({
               <div>
                 <div className="dniFiles">
                   <div className="inputfilecontainer col-md-5">
-                    <Form.Label className="info_documentos_label">
-                      DNI FRENTE
-                    </Form.Label>
-                    <Form.Control
-                      className="info_documentos_campos"
-                      type="file"
+                    <input
+                      id="dniInput"
                       name="dniFront"
-                      placeholder="DNI dorso"
-                      onChange={(e) => {
-                        setUser((prevstate) => ({
-                          ...prevstate,
-                          [e.target.name]: e.target.value,
-                        }));
-                      }}
-                    />
+                      type="file"
+                      onChange={handleDniFront}
+                    >
+                    </input>
+                    <label htmlFor="dniInput" className="DNIFRONT">
+                      <img
+                        className="DNIFRONT"
+                        //src={`http://localhost:3002/api/v1/files/users/${user.dniFront}`}
+                        alt={user?.dniFront}
+                      />
+                    </label>
                   </div>
                   <div className="inputfilecontainer col-md-5">
-                    <Form.Label className="info_documentos_label">
-                      DNI POSTERIOR
-                    </Form.Label>
-                    <Form.Control
-                      className="info_documentos_campos"
-                      type="file"
+                    <input
+                      id="dniInput"
                       name="dniFront"
-                      placeholder="DNI dorso"
-                      onChange={(e) => {
-                        setUser((prevstate) => ({
-                          ...prevstate,
-                          [e.target.name]: e.target.value,
-                        }));
-                      }}
-                    />
+                      type="file"
+                      onChange={handleDniBack}
+                    >
+                    </input>
+                    <label htmlFor="dniInput" className="DNIBACK">
+                      <img
+                        className="DNIBACK"
+                        //src={`http://localhost:3002/api/v1/files/users/${user.dniBack}`}
+                        alt={user?.dniBack}
+                      />
+                    </label>
                   </div>
                 </div>
               </div>
@@ -312,7 +317,7 @@ const profileForm = ({
                   </Modal.Header>
                   <Modal.Body>
                     <form>
-                    <Form.Group
+                      <Form.Group
                         className="mb-3"
                         controlId="formBasicPassword"
                       >

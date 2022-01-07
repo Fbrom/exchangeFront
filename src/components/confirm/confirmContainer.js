@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import ConfirmForm from "./confirmForm";
 import { GlobalExchange } from "../../context/globalcontext";
 import axios from "axios";
+import { unique, calculator } from "../../util";
 
 const ConfirmContainer = () => {
   const { createExchange, exchange } = useContext(GlobalExchange);
@@ -13,20 +14,17 @@ const ConfirmContainer = () => {
     source: exchange.sourceName,
     target: exchange.targetName,
   });
-  const [amount, setAmount] = useState(exchange.amount);
-  const [result, setResult] = useState(exchange.result);
-  const [comission, setComission] = useState("");
-  const [finalValue, setFinalValue] = useState("");
+  const [amount, setAmount] = useState(exchange?.amount || 0);
+  const [result, setResult] = useState(exchange?.result || 0);
+  const [comission, setComission] = useState(0);
+  // const [finalValue, setFinalValue] = useState("");
 
-  const unique = (value, index, self) => {
-    return self.indexOf(value) === index;
-  };
 
   useEffect(() => {
     fetch("http://localhost:3002/api/v1/exchanges/")
       .then((res) => res.json())
       .then((res) => {
-        setData(res.data);
+        setData(res?.data);
       })
       .catch((err) => console.log("error de:", err))
       .finally(() => console.log("exchanges cargados"));
@@ -51,15 +49,13 @@ const ConfirmContainer = () => {
         targets.sourceName === selection.source &&
         targets.targetName === selection.target
     );
-    const comissions = options.map((dato) => dato.comission);
-    setComission(Number(comissions).toFixed(5));
-    const finalValue = options.map((dato) => dato.finalValue);
-    setFinalValue(finalValue);
+    const comission = options[0]?.comission;
+    const finalValue = options[0]?.finalValue;
 
-    function calculator(comission, finalValue, amount) {
-      return amount * (1 - comission) * finalValue;
+    if(comission && finalValue){
+      setResult(calculator(comission, finalValue, amount));
     }
-    setResult(calculator(comission, finalValue, amount));
+    setComission(comission)
   }, [selection, amount]);
 
   useEffect(() => {
@@ -95,8 +91,8 @@ const ConfirmContainer = () => {
       setAmount={setAmount}
       amount={amount}
       handleSubmit={handleSubmit}
-      comission={comission}
-      finalValue={finalValue}
+      // comission={comission}
+      // finalValue={finalValue}
       setSelection={setSelection}
       selection={selection}
       exchange={exchange}

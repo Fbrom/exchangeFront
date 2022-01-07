@@ -4,15 +4,14 @@ import ProfileForm from "./profileForm";
 import { useNavigate } from "react-router-dom";
 
 const ProfileContainer = () => {
-  const [user, setUser] = useState({});
-  const [contraseña, setContraseña] = useState([""]);
+  const [user, setUser] = useState("");
+  const [contraseña, setContraseña] = useState("");
   const [show, setShow] = useState(false);
   const [contraseñaNueva, setContraseñaNueva] = useState("");
   const [contraseñaNueva1, setContraseñaNueva1] = useState("");
   const [contraseñaAntigua, setContraseñaAntigua] = useState("");
-  const [email, setEmail] = useState([""]);
-  const [selfie, setSelfie] = useState("");
-  let history = useNavigate();
+  const [email, setEmail] = useState("");
+  let history = useNavigate("");
 
   useEffect(() => {
     const accessToken = window.localStorage.getItem("token");
@@ -21,13 +20,20 @@ const ProfileContainer = () => {
         Authorization: `Bearer ${accessToken}`,
       },
     })
+    
       .then((res) => res.json())
       .then((res) => {
-        setUser(res.data.profile);
-        setEmail(res.data.email);
+        setUser(res?.data?.profile);
+        setEmail(res?.data?.email);
       })
-      .catch((err) => console.log("error de:", err))
+      .catch((err) => {console.log("error de:", err)
+    })
       .finally(() => console.log("profile cargado"));
+
+      if (accessToken === null){
+        history("/login")
+      }
+
   }, []);
 
   const handleClose = () => setShow(false);
@@ -52,39 +58,42 @@ const ProfileContainer = () => {
     setUser(user);
   }, [user]);
 
-  useEffect(() => {
-    const accessToken = window.localStorage.getItem("token");
-
-    const selfie = ["61b905747b80565e94e34d99", "selfie", user.selfie];
-    Axios.put(
-      "http://localhost:3002/api/v1/users/profile/selfie/",
-      { selfie },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-  }, [user.selfie]);
 
   const handleSelfie = (event) => {
-    const accessToken = window.localStorage.getItem("token");
-    Axios.put(
-      "http://localhost:3002/api/v1/users/profile/selfie/",
-      user.selfie,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-  };
+      const accessToken = window.localStorage.getItem("token");
+      const file = new FormData();
+      file.append("selfie", event.target.files[0]);
+      Axios.put(
+        "http://localhost:3002/api/v1/users/profile/selfie/",
+         file ,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      .then(window.location.reload())
+    };
+
+      // const handleDniFront = (event) => {
+      //   const fileFront = new FormData();
+      //   fileFront.append("dniFront", event.target.files[0]);
+      //   user.dniFront= fileFront
+      // };
+
+      // const handleDniBack = (event) => {
+      //   const fileBack = new FormData();
+      //   fileBack.append("dniBack", event.target.files[0]);
+      //   user.dniBack= fileBack
+      //   console.log(user)
+      // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    if (contraseñaAntigua != "" && contraseña != "") {
     user.password = contraseñaAntigua;
-    user.newPassword = contraseña;
+    user.newPassword = contraseña;}
+    console.log(user)
 
     const accessToken = window.localStorage.getItem("token");
     Axios.put("http://localhost:3002/api/v1/users/profile", user, {
@@ -110,11 +119,11 @@ const ProfileContainer = () => {
       handleSave={handleSave}
       user={user}
       email={email}
-      selfie={selfie}
-      setSelfie={setSelfie}
       handleSelfie={handleSelfie}
       setContraseñaAntigua={setContraseñaAntigua}
       contraseñaAntigua={contraseñaAntigua}
+      // handleDniFront={handleDniFront}
+      // handleDniBack={handleDniBack}
     />
   );
 };

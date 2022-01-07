@@ -4,7 +4,7 @@ import DivisasForm from "./dashboardForm";
 import { useNavigate } from "react-router-dom";
 
 const DashboardContainer = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([""]);
   const [show, setShow] = useState(false);
   const [newData, setNewData] = useState({});
   let history = useNavigate();
@@ -14,7 +14,7 @@ const DashboardContainer = () => {
   const [comission, setComission] = useState("");
   const [finalValue, setFinalValue] = useState("");
   const [tipo, setTipo] = useState("");
-  const [edit, setEdit] = useState();
+  const [edit, setEdit] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3002/api/v1/exchanges/")
@@ -72,11 +72,11 @@ const DashboardContainer = () => {
 
   useEffect(() => {
     if (edit != undefined) {
-      setTarget(edit[0].targetName);
-      setSource(edit[0].sourceName);
-      setTipo(edit[0].type);
-      setFinalValue(parseFloat(edit[0].finalValue));
-      setComission(parseFloat(edit[0].comission));
+      setTarget(edit[0]?.targetName);
+      setSource(edit[0]?.sourceName);
+      setTipo(edit[0]?.type);
+      setFinalValue(parseFloat(edit[0]?.finalValue));
+      setComission(parseFloat(edit[0]?.comission));
     }
   }, [edit]);
 
