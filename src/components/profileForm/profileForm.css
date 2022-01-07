@@ -61,10 +61,18 @@ h3{
 }
 
 .selfie{
-    max-width: 10%;
-    height: auto;
+    max-width: 15%;
+    max-height: 100%;
     display: inline;
     justify-content: center;
 
     
 }
+
+#fileInput{
+    display: none;
+  }
+  /* #icon{
+    width: 100px;
+    cursor: pointer;
+  } */

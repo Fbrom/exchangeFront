@@ -29,6 +29,7 @@ const loginForm = ({ setUser, setPassword, handleSubmit }) => {
             <Form.Control
               type="password"
               placeholder="Password"
+              autoComplete="on"
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>

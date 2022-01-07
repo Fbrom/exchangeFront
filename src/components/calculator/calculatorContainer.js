@@ -11,10 +11,9 @@ const CalculatorContainer = () => {
   const [optionsSource, setOptionsSource] = useState([""]);
   const [optionsTarget, setOptionsTarget] = useState([""]);
   const [selection, setSelection] = useState({});
-  const [amount, setAmount] = useState("");
-  const [comission, setComission] = useState("");
-  const [finalValue, setFinalValue] = useState("");
+  const [amount, setAmount] = useState(0);
   const [submit, setSubmit] = useState("false");
+  const [result, setResult] = useState(0)
 
   let history = useNavigate();
 
@@ -49,14 +48,17 @@ const CalculatorContainer = () => {
         targets.sourceName === selection.source &&
         targets.targetName === selection.target
     );
+    
+    const comission = options[0]?.comission;
+    const finalValue = options[0]?.finalValue;
+    
+    if(comission && finalValue){
+    setResult(calculator(comission, finalValue, amount));
+  }
+    }, [selection.source, amount, selection.target]);
 
-    const comissions = options.map((dato) => dato.comission);
-    setComission(parseFloat(comissions));
-    const finalValue = options.map((dato) => dato.finalValue);
-    setFinalValue(finalValue);
-  }, [selection.source, amount, selection.target]);
-
-  const result = calculator(comission, finalValue, amount);
+    
+ 
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -80,8 +82,8 @@ const CalculatorContainer = () => {
       amount={amount}
       setSubmit={setSubmit}
       handleSubmit={handleSubmit}
-      comission={comission}
-      finalValue={finalValue}
+      // comission={comission}
+      //finalValue={finalValue}
       setSelection={setSelection}
       selection={selection}
     />
